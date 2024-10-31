@@ -41,7 +41,7 @@ const renderTags = (labels: Label[]) => {
 };
 
 const init = async (): Promise<void> => {
-  const repoName = getRepoName();
+  const repoName = await getRepoName();
   const labels = await getLabels(repoName);
   if (labels && labels.length > 0) {
     renderTags(labels);

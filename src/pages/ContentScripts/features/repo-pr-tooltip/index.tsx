@@ -38,7 +38,7 @@ const getData = async () => {
 };
 
 const init = async (): Promise<void> => {
-  repoName = getRepoName();
+  repoName = await getRepoName();
   await getData();
 
   await elementReady('#pull-requests-tab');

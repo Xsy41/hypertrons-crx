@@ -22,7 +22,7 @@ const getData = async () => {
 };
 
 const init = async (): Promise<void> => {
-  repoName = getRepoName();
+  repoName = await getRepoName();
   await getData();
 
   const forkButtonSelector = '#fork-button';

@@ -3,9 +3,17 @@ import { metaStore } from '../api/common';
 import $ from 'jquery';
 import * as pageDetect from 'github-url-detection';
 import elementReady from 'element-ready';
+import { getRepositoryFullName } from '../api/githubApi';
 
-export function getRepoName() {
-  return pageDetect.utils.getRepositoryInfo(window.location)!.nameWithOwner;
+export async function getRepoName() {
+  const repoFullName = pageDetect.utils.getRepositoryInfo(window.location)!.nameWithOwner;
+  // return repoFullName;
+  const [owner, repo] = repoFullName.split('/');
+  console.log(owner, repo);
+  const tmp = await getRepositoryFullName(owner, repo);
+  console.log('tmp', tmp);
+  // return getRepositoryFullName(owner, repo)
+  return tmp;
 }
 
 export function hasRepoContainerHeader() {
@@ -29,5 +37,6 @@ export async function isPublicRepo() {
 }
 
 export async function isPublicRepoWithMeta() {
-  return (await isPublicRepo()) && (await metaStore.has(getRepoName()));
+  // console.log((await isPublicRepo()) && (await metaStore.has(await getRepoName())));
+  return (await isPublicRepo()) && (await metaStore.has(await getRepoName()));
 }

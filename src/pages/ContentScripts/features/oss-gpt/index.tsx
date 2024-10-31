@@ -54,7 +54,7 @@ const renderTo = (container: any) => {
 };
 
 const init = async (): Promise<void> => {
-  repoName = getRepoName();
+  repoName = await getRepoName();
   await getData();
 
   const container = document.createElement('div');
@@ -66,8 +66,8 @@ const init = async (): Promise<void> => {
   // TODO need a mechanism to remove extra listeners like this one
   document.addEventListener('turbo:load', async () => {
     if (await isPublicRepo()) {
-      if (repoName !== getRepoName()) {
-        repoName = getRepoName();
+      if (repoName !== (await getRepoName())) {
+        repoName = await getRepoName();
         renderTo($(`#${featureId}`)[0]);
       }
     } else {

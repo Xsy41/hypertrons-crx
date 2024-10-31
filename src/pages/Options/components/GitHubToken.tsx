@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import TooltipTrigger from '../../../components/TooltipTrigger';
-import { saveGithubToken, getGithubToken, githubRequest } from '../../../api/githubApi';
+// import { saveGithubToken, getGithubToken, githubRequest } from '../../../api/githubApi';
+
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { getGithubToken, saveGithubToken } from '../../../helpers/github-token';
+import { getGithubDeveloper } from '../../../api/githubApi';
 
 const GitHubToken = () => {
   const [token, setToken] = useState('');
@@ -35,11 +38,9 @@ const GitHubToken = () => {
   };
 
   const handleTestToken = async () => {
-    const userData = await githubRequest('/user', {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const userData = await getGithubDeveloper();
 
-    if (userData === null || userData.message) {
+    if (userData === null) {
       showMessage(t('github_token_error_invalid'), 'error');
     } else {
       showMessage(t('github_token_success_valid', { username: userData.login }), 'success');

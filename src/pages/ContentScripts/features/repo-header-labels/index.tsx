@@ -47,7 +47,7 @@ const waitForElement = (selector: string) => {
   });
 };
 const init = async (): Promise<void> => {
-  repoName = getRepoName();
+  repoName = await getRepoName();
   await getData();
   const container = document.createElement('div');
   container.id = featureId;
@@ -76,8 +76,8 @@ const init = async (): Promise<void> => {
 const restore = async () => {
   // Clicking another repo link in one repo will trigger a turbo:visit,
   // so in a restoration visit we should be careful of the current repo.
-  if (repoName !== getRepoName()) {
-    repoName = getRepoName();
+  if (repoName !== (await getRepoName())) {
+    repoName = await getRepoName();
     await getData();
   }
   // Ideally, we should do nothing if the container already exists. But after a tubor

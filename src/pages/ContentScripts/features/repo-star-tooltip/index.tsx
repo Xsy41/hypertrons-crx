@@ -22,7 +22,7 @@ const getData = async () => {
 };
 
 const init = async (): Promise<void> => {
-  repoName = getRepoName();
+  repoName = await getRepoName();
   await getData();
   const isLogined = checkLogined();
   const starButtonSelector = isLogined ? 'button[data-ga-click*="star button"]' : 'a[data-hydro-click*="star button"]';

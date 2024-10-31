@@ -16,7 +16,7 @@ const renderTo = (container: any) => {
 };
 
 const init = async (): Promise<void> => {
-  repoName = getRepoName();
+  repoName = await getRepoName();
   const networksContainer = '#hypercrx-perceptor-slot-repo-networks';
   await elementReady(networksContainer, { stopOnDomReady: false });
   const container = document.createElement('div');
